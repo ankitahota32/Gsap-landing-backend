@@ -1,6 +1,9 @@
+// src/order/order.controller.ts
 import { Controller, Post, Body, Req, UseGuards, Get } from '@nestjs/common';
+import { Request } from 'express';
 import { OrderService } from './order.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { PlaceOrderDto } from './dto/place-order.dto';
 
 @Controller('order')
 export class OrderController {
@@ -8,8 +11,8 @@ export class OrderController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async placeOrder(@Body() body: any, @Req() req: any) {
-    const userId = req.user.userId;
+  async placeOrder(@Body() body: PlaceOrderDto, @Req() req: Request) {
+    const userId = req.user?.userId;
     const { items, totalAmount } = body;
 
     const newOrder = await this.orderService.createOrder({
@@ -27,8 +30,8 @@ export class OrderController {
 
   @UseGuards(JwtAuthGuard)
   @Get('my-orders')
-  async getMyOrders(@Req() req: any) {
-    const userId = req.user.userId;
+  async getMyOrders(@Req() req: Request) {
+    const userId = req.user?.userId;
     const orders = await this.orderService.getOrdersByUser(userId);
     return orders;
   }
