@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: 'https://gsap-e-commerce.netlify.app', // Next.js dev server
+    origin: ['https://gsap-e-commerce.netlify.app', 'http://localhost:3000'], // Next.js dev server
     credentials: true,
   });
 
