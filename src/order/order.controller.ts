@@ -32,7 +32,7 @@ export class OrderController {
   @Get('my-orders')
   async getMyOrders(@Req() req: Request) {
     const userId = req.user?.userId;
-    const orders = await this.orderService.getOrdersByUser(userId);
+    const orders = await this.orderService.getOrdersByUser(userId!);
     return orders;
   }
 }
