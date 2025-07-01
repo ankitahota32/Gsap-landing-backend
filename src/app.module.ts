@@ -3,8 +3,8 @@ import { MongooseModule, InjectConnection } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Connection, ConnectionStates } from 'mongoose';
 import { AppController } from './app.controller';
-import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -18,8 +18,8 @@ import { AuthModule } from './auth/auth.module';
       }),
       inject: [ConfigService],
     }),
-    UsersModule,
     AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
 })

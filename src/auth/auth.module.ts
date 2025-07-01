@@ -6,12 +6,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
-import { UsersModule } from '../users/users.module';
+import { UserModule } from '../user/user.module'; // ✅ needed if using UserService in AuthService
 
 @Module({
   imports: [
-    UsersModule,
     PassportModule,
+    ConfigModule,
+    UserModule, // ✅ important!
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -29,6 +30,6 @@ import { UsersModule } from '../users/users.module';
   ],
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
-  exports: [JwtModule],
+  exports: [JwtModule], // optional — only if other modules need to sign tokens
 })
 export class AuthModule {}
