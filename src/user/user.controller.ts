@@ -7,9 +7,17 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   @Get('profile')
   getProfile(@Req() req: Request) {
+    const user = req.user;
+
     return {
-      user: req.user,
-      orders: [],
+      data: {
+        user: {
+          _id: user?.userId,
+          name: user?.name,
+          email: user?.email,
+        },
+        orders: [],
+      },
     };
   }
 }
