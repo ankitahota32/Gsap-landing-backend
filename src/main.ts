@@ -11,7 +11,7 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: ['https://gsap-e-commerce.netlify.app', 'http://localhost:3000'], // Next.js dev server
+    origin: 'https://gsap-e-commerce.netlify.app',
     credentials: true,
   });
 
