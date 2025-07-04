@@ -17,7 +17,7 @@ export class AuthController {
       body.password,
     );
 
-    res.cookie('jwt', token, {
+    res.cookie('token', token, {
       httpOnly: true,
       sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production',
@@ -37,10 +37,10 @@ export class AuthController {
       body.password,
     );
 
-    res.cookie('jwt', token, {
+    res.cookie('token', token, {
       httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none',
+      secure: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -49,7 +49,7 @@ export class AuthController {
 
   @Post('logout')
   logout(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie('jwt');
+    res.clearCookie('token');
     return { message: 'Logged out successfully' };
   }
 }
